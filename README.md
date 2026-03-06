@@ -39,9 +39,9 @@ The deployed application is a **microservices-based voting application** consist
         ▼
  Kubernetes Dashboard
 
----
+```
 
- ```
+---
 
 ## ⚙️ Project Workflow
 
