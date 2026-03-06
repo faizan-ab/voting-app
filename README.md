@@ -15,7 +15,7 @@ The deployed application is a **microservices-based voting application** consist
 
 ## 🏗 Architecture
 
-![Architecture](screenshots/architecture.excalidraw.png)
+![Architecture](screenshots/architecture.png)
 
 ```
                  GitHub Repository
