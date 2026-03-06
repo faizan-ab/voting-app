@@ -5,7 +5,6 @@ This project demonstrates **GitOps-based application deployment using ArgoCD on 
 The Kubernetes cluster is created using **Kind**, and ArgoCD automatically synchronizes application manifests from GitHub and deploys them into the cluster.
 
 The deployed application is a **microservices-based voting application** consisting of:
-
 * Vote Service
 * Result Service
 * Worker Service
