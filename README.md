@@ -1,62 +1,190 @@
-# ☸️Voting App Kubernetes Project
-
-A comprehensive guide for setting up a Kubernetes cluster using Kind on an AWS EC2 instance, installing and configuring Argo CD, and deploying applications using Argo CD.
-
-## Overview
-
-This guide covers the steps to:
-- Launch an AWS EC2 instance.
-- Install Docker and Kind.
-- Create a Kubernetes cluster using Kind.
-- Install and access kubectl.
-- Set up the Kubernetes Dashboard.
-- Install and configure Argo CD.
-- Connect and manage your Kubernetes cluster with Argo CD.
-
-
 ## Architecture
 
 ![Architecture diagram](https://github.com/harshitsahu2311/Voting-app-kubernetes-Project/blob/main/you-ezgif.com-crop.gif)
 
-## Monitoring
-
-![kubernetes-dashboard](https://github.com/harshitsahu2311/Voting-app-kubernetes-Project/blob/main/Screenshot%202024-10-09%20154634.png)
-
-## Observability
-
-![Grafana diagram](grafana.png)
-![Prometheus diagram](prometheus.png)
-
-* A front-end web app in [Python](/vote) which lets you vote between two options
-* A [Redis](https://hub.docker.com/_/redis/) which collects new votes
-* A [.NET](/worker/) worker which consumes votes and stores them in…
-* A [Postgres](https://hub.docker.com/_/postgres/) database backed by a Docker volume
-* A [Node.js](/result) web app which shows the results of the voting in real time
 
 
+# 🚀 Kubernetes GitOps Deployment using ArgoCD on AWS EC2
 
-## Resume Description
+This project demonstrates **GitOps-based application deployment using ArgoCD on a Kubernetes cluster running on AWS EC2**.
 
-### Project Title: 
+The Kubernetes cluster is created using **Kind**, and ArgoCD automatically synchronizes application manifests from GitHub and deploys them into the cluster.
 
-Automated Deployment of Scalable Applications on AWS EC2 with Kubernetes and Argo CD
+The deployed application is a **microservices-based voting application** consisting of:
 
-### Description: 
+* Vote Service
+* Result Service
+* Worker Service
+* Redis
+* PostgreSQL
 
-Led the deployment of scalable applications on AWS EC2 using Kubernetes and Argo CD for streamlined management and continuous integration. Orchestrated deployments via Kubernetes dashboard, ensuring efficient resource utilization and seamless scaling.
+---
 
-### Key Technologies:
+# 🏗 Architecture
 
-* AWS EC2: Infrastructure hosting for Kubernetes clusters.
-* Kubernetes Dashboard: User-friendly interface for managing containerized applications.
-* Argo CD: Continuous Delivery tool for automated application deployments.
+![Architecture](screenshots/architecture.png)
 
-### Achievements:
+**Workflow**
 
-Implemented Kubernetes dashboard for visual management of containerized applications on AWS EC2 instances.
-Utilized Argo CD for automated deployment pipelines, enhancing deployment efficiency by 60%.
-Achieved seamless scaling and high availability, supporting 99.9% uptime for critical applications.
-This project description emphasizes your role in leveraging AWS EC2, Kubernetes, and Argo CD to optimize application deployment and management processes effectively.
+GitHub Repository → ArgoCD → Kubernetes Cluster → Application Deployment
 
+---
 
+# ⚙️ Tech Stack
+
+* AWS EC2
+* Docker
+* Kubernetes (Kind)
+* kubectl
+* ArgoCD
+* Redis
+* PostgreSQL
+* Kubernetes Dashboard
+
+---
+
+# ☁️ Infrastructure Setup
+
+EC2 Configuration
+
+| Parameter     | Value        |
+| ------------- | ------------ |
+| Instance Type | t2.medium    |
+| OS            | Ubuntu 24.04 |
+| Storage       | 30GB         |
+
+Kubernetes Cluster
+
+* 1 Control Plane
+* 2 Worker Nodes
+
+---
+
+# 🔧 Setup Steps
+
+### Install Docker
+
+```
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io -y
+```
+
+### Install Kind
+
+```
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+chmod +x kind
+sudo mv kind /usr/local/bin/
+```
+
+### Create Kubernetes Cluster
+
+```
+kind create cluster --config=config.yml --name my-cluster
+```
+
+### Install kubectl
+
+```
+curl -LO https://dl.k8s.io/release/v1.30.0/bin/linux/amd64/kubectl
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+```
+
+---
+
+# 🚀 Install ArgoCD
+
+```
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
+Access ArgoCD
+
+```
+https://EC2_PUBLIC_IP:8443
+```
+
+---
+
+# 📦 Deploy Application
+
+Create an **ArgoCD Application** pointing to the Voting App repository.
+
+ArgoCD will automatically:
+
+* Pull Kubernetes manifests
+* Deploy services
+* Keep the cluster synced with GitHub
+
+---
+
+# 🌐 Access the Application
+
+Vote Application
+
+```
+http://EC2_PUBLIC_IP:5000
+```
+
+Result Application
+
+```
+http://EC2_PUBLIC_IP:5001
+```
+
+---
+
+# 📊 Kubernetes Dashboard
+
+Deploy dashboard
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+```
+
+Access dashboard
+
+```
+https://EC2_PUBLIC_IP:8080
+```
+
+---
+
+# 📸 Screenshots
+
+### ArgoCD Dashboard
+
+![ArgoCD](screenshots/argocd-dashboard.png)
+
+### Kubernetes Pods
+
+![Pods](screenshots/kubernetes-pods.png)
+
+### Vote Application
+
+![Vote App](screenshots/vote-app.png)
+
+### Result Application
+
+![Result App](screenshots/result-app.png)
+
+### Kubernetes Dashboard
+
+![Dashboard](screenshots/kubernetes-dashboard.png)
+
+---
+
+# 📚 Key Learnings
+
+* GitOps deployment using ArgoCD
+* Managing Kubernetes clusters with Kind
+* Deploying microservices applications
+* Kubernetes service networking
+* Troubleshooting container runtime issues
+
+---
+
+⭐ If you like this project, give it a star!
 
