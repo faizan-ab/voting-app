@@ -1,9 +1,3 @@
-## Architecture
-
-![Architecture diagram](https://github.com/harshitsahu2311/Voting-app-kubernetes-Project/blob/main/you-ezgif.com-crop.gif)
-
-
-
 # 🚀 Kubernetes GitOps Deployment using ArgoCD on AWS EC2
 
 This project demonstrates **GitOps-based application deployment using ArgoCD on a Kubernetes cluster running on AWS EC2**.
@@ -20,17 +14,54 @@ The deployed application is a **microservices-based voting application** consist
 
 ---
 
-# 🏗 Architecture
+## 🏗 Architecture
 
 ![Architecture](screenshots/architecture.png)
 
-**Workflow**
-
-GitHub Repository → ArgoCD → Kubernetes Cluster → Application Deployment
+```
+                 GitHub Repository
+                         │
+                         │ (GitOps)
+                         ▼
+                     ArgoCD
+               Continuous Delivery
+                         │
+                         ▼
+                Kubernetes Cluster
+            (Kind running on AWS EC2)
+                         │
+        ┌───────────────┼───────────────┐
+        │               │               │
+     Vote App        Result App       Worker
+        │
+        ▼
+   Redis + PostgreSQL
+        │
+        ▼
+ Kubernetes Dashboard
 
 ---
 
-# ⚙️ Tech Stack
+ ```
+
+## ⚙️ Project Workflow
+
+```
+Developer pushes code → GitHub Repository
+        ↓
+ArgoCD detects changes
+        ↓
+ArgoCD syncs manifests
+        ↓
+Kubernetes deploys services
+        ↓
+Application becomes available
+
+```
+
+---
+
+## ⚙️ Tech Stack
 
 * AWS EC2
 * Docker
@@ -43,7 +74,7 @@ GitHub Repository → ArgoCD → Kubernetes Cluster → Application Deployment
 
 ---
 
-# ☁️ Infrastructure Setup
+## ☁️ Infrastructure Setup
 
 EC2 Configuration
 
@@ -60,7 +91,7 @@ Kubernetes Cluster
 
 ---
 
-# 🔧 Setup Steps
+## 🔧 Setup Steps
 
 ### Install Docker
 
@@ -93,7 +124,7 @@ sudo mv kubectl /usr/local/bin/
 
 ---
 
-# 🚀 Install ArgoCD
+## 🚀 Install ArgoCD
 
 ```
 kubectl create namespace argocd
@@ -108,7 +139,7 @@ https://EC2_PUBLIC_IP:8443
 
 ---
 
-# 📦 Deploy Application
+## 📦 Deploy Application
 
 Create an **ArgoCD Application** pointing to the Voting App repository.
 
@@ -120,7 +151,7 @@ ArgoCD will automatically:
 
 ---
 
-# 🌐 Access the Application
+## 🌐 Access the Application
 
 Vote Application
 
@@ -136,7 +167,7 @@ http://EC2_PUBLIC_IP:5001
 
 ---
 
-# 📊 Kubernetes Dashboard
+## 📊 Kubernetes Dashboard
 
 Deploy dashboard
 
@@ -152,11 +183,15 @@ https://EC2_PUBLIC_IP:8080
 
 ---
 
-# 📸 Screenshots
+## 📸 Screenshots
 
 ### ArgoCD Dashboard
 
 ![ArgoCD](screenshots/argocd-dashboard.png)
+
+### Kubernetes Nodes
+
+![Pods](screenshots/kubernetes-nodes.png)
 
 ### Kubernetes Pods
 
@@ -176,7 +211,7 @@ https://EC2_PUBLIC_IP:8080
 
 ---
 
-# 📚 Key Learnings
+## 📚 Key Learnings
 
 * GitOps deployment using ArgoCD
 * Managing Kubernetes clusters with Kind
@@ -186,5 +221,9 @@ https://EC2_PUBLIC_IP:8080
 
 ---
 
-⭐ If you like this project, give it a star!
+👨‍💻 Author
+
+Mohammed Abdul Faizan
+
+DevOps & Cloud Enthusiast
 
